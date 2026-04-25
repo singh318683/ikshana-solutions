@@ -4,6 +4,44 @@ import './App.css';
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [formData, setFormData] = useState({ from_name: '', from_email: '', industry: '', message: '' });
+  const [formStatus, setFormStatus] = useState('idle');
+
+  const handleSubmit = async () => {
+    if (!formData.from_name || !formData.from_email || !formData.message) {
+      alert('Please fill in your name, email and message.');
+      return;
+    }
+    setFormStatus('sending');
+    try {
+      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          service_id: 'service_hvnu8oz',
+          template_id: 'template_alt0iic',
+          user_id: 'DLCDgUFK4TFzICItv',
+          template_params: {
+            from_name: formData.from_name,
+            from_email: formData.from_email,
+            industry: formData.industry,
+            message: formData.message
+          }
+        })
+      });
+      if (response.ok) {
+        setFormStatus('sent');
+        setFormData({ from_name: '', from_email: '', industry: '', message: '' });
+        setTimeout(() => setFormStatus('idle'), 5000);
+      } else {
+        setFormStatus('error');
+        setTimeout(() => setFormStatus('idle'), 5000);
+      }
+    } catch (err) {
+      setFormStatus('error');
+      setTimeout(() => setFormStatus('idle'), 5000);
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -277,16 +315,16 @@ function App() {
               <div className="form-row">
                 <div className="form-group">
                   <label>Your Name</label>
-                  <input type="text" placeholder="Jane Smith" />
+                  <input type="text" placeholder="Jane Smith" value={formData.from_name} onChange={e => setFormData({...formData, from_name: e.target.value})} />
                 </div>
                 <div className="form-group">
                   <label>Email Address</label>
-                  <input type="email" placeholder="jane@company.com" />
+                  <input type="email" placeholder="jane@company.com" value={formData.from_email} onChange={e => setFormData({...formData, from_email: e.target.value})} />
                 </div>
               </div>
               <div className="form-group">
                 <label>Industry</label>
-                <select>
+                <select value={formData.industry} onChange={e => setFormData({...formData, industry: e.target.value})}>
                   <option>Select your industry</option>
                   <option>Telecommunication</option>
                   <option>Clinical Trials</option>
@@ -296,9 +334,11 @@ function App() {
               </div>
               <div className="form-group">
                 <label>Describe your problem</label>
-                <textarea rows="5" placeholder="Tell us what challenge you're facing..." />
+                <textarea rows="5" placeholder="Tell us what challenge you're facing..." value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} />
               </div>
-              <button className="btn btn--primary btn--full">Send Message</button>
+              <button className="btn btn--primary btn--full" onClick={handleSubmit} disabled={formStatus === 'sending'}>
+                {formStatus === 'sending' ? 'Sending...' : formStatus === 'sent' ? '✅ Message Sent!' : formStatus === 'error' ? 'Error - Try Again' : 'Send Message'}
+              </button>
             </div>
           </div>
         </div>
