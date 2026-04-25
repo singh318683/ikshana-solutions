@@ -1,4 +1,3 @@
-import { Analytics } from '@vercel/analytics/react';
 import React, { useEffect, useState } from 'react';
 import './App.css';
 
@@ -217,7 +216,7 @@ function App() {
           <div className="founder__inner">
             <div className="founder__photo-wrap">
               <div className="founder__photo-ring">
-                <div className="founder__photo-placeholder">NS</div>
+                <img src="/neetu.jpg" alt="Neetu Singh" className="founder__photo-img" />
               </div>
               <div className="founder__credentials">
                 <div className="founder__credential">
@@ -271,6 +270,7 @@ function App() {
             <div className="section__tag">Get Started</div>
             <h2 className="section__title">Let's solve it together</h2>
             <p className="section__sub">Tell us about your challenge. We'll respond within 24 hours.</p>
+            <p className="section__sub" style={{marginTop: '0.5rem'}}>Or email us directly at <a href="mailto:ikshanasolution123@gmail.com" style={{color: 'var(--blue-light)'}}>ikshanasolution123@gmail.com</a></p>
           </div>
           <div className="contact__form-wrap">
             <div className="contact__form">
@@ -319,13 +319,13 @@ function App() {
             <a href="#industries">Industries</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
+            <a href="mailto:ikshanasolution123@gmail.com">ikshanasolution123@gmail.com</a>
           </div>
         </div>
         <div className="footer__bottom">
           <p>© 2026 Ikshana Solutions. All rights reserved.</p>
         </div>
       </footer>
-      <Analytics />
     </div>
   );
 }
