@@ -221,7 +221,7 @@ function App() {
               <div className="founder__credentials">
                 <div className="founder__credential">
                   <span className="founder__credential-icon">◈</span>
-                  <span>Bayer — Director, Clinical Strategy</span>
+                  <span>Clinical Strategy & Innovation Leader</span>
                 </div>
                 <div className="founder__credential">
                   <span className="founder__credential-icon">◈</span>
@@ -237,10 +237,10 @@ function App() {
               <h3 className="founder__name">Neetu Singh</h3>
               <div className="founder__title-badge">Founder & CEO</div>
               <p className="founder__bio">
-                Neetu Singh brings over a decade of strategic leadership in clinical research and life sciences to Ikshana Solutions. As Director of Clinical Strategy at Bayer, she has led complex, multi-stakeholder projects at the intersection of technology and healthcare — developing a deep understanding of how operational inefficiencies in regulated industries demand purpose-built solutions.
+                Neetu Singh is a technology innovator, strategist, and natural connector of people — driven by a lifelong belief that the most complex problems yield to the right combination of clarity, creativity, and human collaboration. With expertise spanning clinical research, telecommunications, and education, she has spent her career transforming operational challenges into opportunities for meaningful, lasting change.
               </p>
               <p className="founder__bio">
-                Her experience navigating the rigorous demands of clinical trials, combined with a broader lens across telecommunications and education, forms the foundation of Ikshana's problem-first philosophy. Neetu founded Ikshana Solutions with a singular conviction: that real-world problems deserve solutions engineered with precision, domain expertise, and genuine understanding.
+                What sets Neetu apart is her rare ability to speak the language of both technology and people. She builds trust quickly, galvanizes diverse teams, and brings out the best in everyone she works with. It is this combination of innovative thinking and genuine warmth that led her to found Ikshana Solutions — a company built on the conviction that great technology must be rooted in deep human understanding.
               </p>
               <div className="founder__personal">
                 <div className="founder__personal-label">Beyond the boardroom</div>
