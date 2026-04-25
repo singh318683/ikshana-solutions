@@ -24,6 +24,7 @@ function App() {
             <li><a href="#services" onClick={() => setMenuOpen(false)}>Services</a></li>
             <li><a href="#about" onClick={() => setMenuOpen(false)}>About</a></li>
             <li><a href="#industries" onClick={() => setMenuOpen(false)}>Industries</a></li>
+            <li><a href="#founder" onClick={() => setMenuOpen(false)}>Leadership</a></li>
             <li><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a></li>
           </ul>
           <button className="nav__cta" href="#contact">Get in Touch</button>
@@ -200,6 +201,63 @@ function App() {
             <div className="about__card">
               <div className="about__card-line">"We don't just ask what you need built — we ask why it needs to exist."</div>
               <div className="about__card-attr">— Ikshana Solutions</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FOUNDER */}
+      <section className="founder section" id="founder">
+        <div className="container">
+          <div className="section__header">
+            <div className="section__tag">Leadership</div>
+            <h2 className="section__title">Meet the Founder</h2>
+          </div>
+          <div className="founder__inner">
+            <div className="founder__photo-wrap">
+              <div className="founder__photo-ring">
+                <div className="founder__photo-placeholder">NS</div>
+              </div>
+              <div className="founder__credentials">
+                <div className="founder__credential">
+                  <span className="founder__credential-icon">◈</span>
+                  <span>Bayer — Director, Clinical Strategy</span>
+                </div>
+                <div className="founder__credential">
+                  <span className="founder__credential-icon">◈</span>
+                  <span>Dr. Babasaheb Ambedkar Marathwada University</span>
+                </div>
+                <div className="founder__credential">
+                  <span className="founder__credential-icon">◈</span>
+                  <span>New York, New York</span>
+                </div>
+              </div>
+            </div>
+            <div className="founder__content">
+              <h3 className="founder__name">Neetu Singh</h3>
+              <div className="founder__title-badge">Founder & CEO</div>
+              <p className="founder__bio">
+                Neetu Singh brings over a decade of strategic leadership in clinical research and life sciences to Ikshana Solutions. As Director of Clinical Strategy at Bayer, she has led complex, multi-stakeholder projects at the intersection of technology and healthcare — developing a deep understanding of how operational inefficiencies in regulated industries demand purpose-built solutions.
+              </p>
+              <p className="founder__bio">
+                Her experience navigating the rigorous demands of clinical trials, combined with a broader lens across telecommunications and education, forms the foundation of Ikshana's problem-first philosophy. Neetu founded Ikshana Solutions with a singular conviction: that real-world problems deserve solutions engineered with precision, domain expertise, and genuine understanding.
+              </p>
+              <div className="founder__personal">
+                <div className="founder__personal-label">Beyond the boardroom</div>
+                <div className="founder__hobbies">
+                  <span className="founder__hobby">🏃 Marathon Runner</span>
+                  <span className="founder__hobby">🥾 Hiker</span>
+                  <span className="founder__hobby">🍳 Culinary Enthusiast</span>
+                </div>
+              </div>
+              <a
+                href="https://www.linkedin.com/in/singh318683"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn--ghost founder__linkedin"
+              >
+                Connect on LinkedIn
+              </a>
             </div>
           </div>
         </div>

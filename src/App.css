@@ -271,3 +271,59 @@ body {
   .footer__inner { flex-direction: column; gap: 1.5rem; text-align: center; }
   .footer__links { flex-wrap: wrap; justify-content: center; }
 }
+
+/* FOUNDER */
+.founder { background: var(--navy-2); }
+.founder__inner {
+  display: grid; grid-template-columns: 340px 1fr; gap: 4rem; align-items: start;
+}
+.founder__photo-wrap { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+.founder__photo-ring {
+  width: 220px; height: 220px; border-radius: 50%;
+  border: 2px solid rgba(37,99,235,0.4);
+  padding: 6px; flex-shrink: 0;
+}
+.founder__photo-placeholder {
+  width: 100%; height: 100%; border-radius: 50%;
+  background: linear-gradient(135deg, var(--navy-3), var(--blue));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 3rem; font-weight: 700; color: #fff;
+}
+.founder__credentials { width: 100%; display: flex; flex-direction: column; gap: 0.75rem; }
+.founder__credential {
+  display: flex; align-items: flex-start; gap: 0.6rem;
+  font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;
+}
+.founder__credential-icon { color: var(--blue-light); flex-shrink: 0; margin-top: 2px; }
+.founder__name {
+  font-family: var(--font-display); font-size: 2rem; font-weight: 700;
+  color: var(--white); margin-bottom: 0.5rem;
+}
+.founder__title-badge {
+  display: inline-block; margin-bottom: 1.5rem;
+  background: rgba(37,99,235,0.15); border: 1px solid rgba(37,99,235,0.3);
+  color: var(--blue-light); font-size: 0.8rem; font-weight: 500;
+  padding: 0.35rem 1rem; border-radius: 100px;
+}
+.founder__bio {
+  font-size: 0.95rem; color: var(--text-muted); line-height: 1.8;
+  margin-bottom: 1rem;
+}
+.founder__personal { margin: 1.5rem 0; }
+.founder__personal-label {
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.75rem;
+}
+.founder__hobbies { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.founder__hobby {
+  background: var(--navy-3); border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text); font-size: 0.85rem; padding: 0.4rem 1rem;
+  border-radius: 100px;
+}
+.founder__linkedin { margin-top: 1rem; display: inline-flex; }
+
+@media (max-width: 768px) {
+  .founder__inner { grid-template-columns: 1fr; }
+  .founder__photo-wrap { flex-direction: column; }
+  .founder__photo-ring { width: 160px; height: 160px; }
+}
