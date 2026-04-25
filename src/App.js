@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import React, { useEffect, useState } from 'react';
 import './App.css';
 
@@ -324,6 +325,7 @@ function App() {
           <p>© 2026 Ikshana Solutions. All rights reserved.</p>
         </div>
       </footer>
+      <Analytics />
     </div>
   );
 }
