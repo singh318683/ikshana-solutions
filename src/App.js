@@ -261,10 +261,7 @@ function App() {
                   <span className="founder__credential-icon">◈</span>
                   <span>Clinical Strategy & Innovation Leader</span>
                 </div>
-                <div className="founder__credential">
-                  <span className="founder__credential-icon">◈</span>
-                  <span>Dr. Babasaheb Ambedkar Marathwada University</span>
-                </div>
+
                 <div className="founder__credential">
                   <span className="founder__credential-icon">◈</span>
                   <span>New York, New York</span>
