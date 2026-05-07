@@ -62,6 +62,7 @@ function App() {
             <li><a href="#services" onClick={() => setMenuOpen(false)}>Services</a></li>
             <li><a href="#about" onClick={() => setMenuOpen(false)}>About</a></li>
             <li><a href="#industries" onClick={() => setMenuOpen(false)}>Industries</a></li>
+            <li><a href="#farmsense" onClick={() => setMenuOpen(false)}>FarmSense</a></li>
             <li><a href="#founder" onClick={() => setMenuOpen(false)}>Leadership</a></li>
             <li><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a></li>
           </ul>
@@ -239,6 +240,82 @@ function App() {
             <div className="about__card">
               <div className="about__card-line">"We don't just ask what you need built — we ask why it needs to exist."</div>
               <div className="about__card-attr">— Ikshana Solutions</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FARMSENSE PRODUCT */}
+      <section className="farmsense section" id="farmsense">
+        <div className="container">
+          <div className="section__header">
+            <div className="section__tag">Our Product</div>
+            <h2 className="section__title">Introducing FarmSense</h2>
+            <p className="section__sub">LoRa-powered environmental monitoring for farms, greenhouses and rural enterprises — real-time insights, zero cellular dependency.</p>
+          </div>
+          <div className="farmsense__hero">
+            <div className="farmsense__badge">🌱 Now Available</div>
+            <div className="farmsense__tagline">Know your farm. <span style={{color: 'var(--blue-light)'}}>Before it's too late.</span></div>
+            <p className="farmsense__desc">
+              A single FarmSense gateway covers up to 10 miles of open terrain using LoRa wireless technology —
+              connecting soil sensors, weather stations, and air quality monitors to a cloud dashboard you can
+              access from anywhere.
+            </p>
+          </div>
+          <div className="farmsense__features">
+            {[
+              { icon: '🌡️', title: 'Soil & Weather Monitoring', desc: 'Real-time soil moisture, temperature, humidity, rainfall and wind — all in one dashboard.' },
+              { icon: '📡', title: 'LoRa Long Range', desc: 'One gateway covers up to 10 miles. No WiFi, no cellular needed. Works where others fail.' },
+              { icon: '🔔', title: 'Smart Alerts', desc: 'Custom SMS and email alerts when conditions cross your thresholds — frost warnings, drought alerts and more.' },
+              { icon: '📊', title: 'Historical Analytics', desc: 'Track trends over time. Make data-driven decisions on irrigation, planting, and harvesting.' },
+              { icon: '🔋', title: '5-Year Battery Life', desc: 'Solar and battery-powered sensors. Deploy once and forget — no wiring, no maintenance.' },
+              { icon: '💧', title: 'Irrigation Recommendations', desc: 'Automated watering recommendations based on real soil moisture data — save water and increase yield.' },
+            ].map((f, i) => (
+              <div className="farmsense__feature-card" key={i}>
+                <div className="farmsense__feature-icon">{f.icon}</div>
+                <h3 className="farmsense__feature-title">{f.title}</h3>
+                <p className="farmsense__feature-desc">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+          <div className="farmsense__pricing">
+            <h3 className="farmsense__pricing-title">Simple, Transparent Pricing</h3>
+            <div className="farmsense__plans">
+              {[
+                { name: 'Starter', price: '$99', period: '/month', devices: 'Up to 10 devices', features: ['Real-time dashboard', 'Email alerts', '90-day data history', 'Basic analytics'], highlight: false },
+                { name: 'Professional', price: '$299', period: '/month', devices: 'Up to 50 devices', features: ['Everything in Starter', 'SMS alerts', '1-year data history', 'API access', 'Irrigation recommendations'], highlight: true },
+                { name: 'Enterprise', price: 'Custom', period: '', devices: 'Unlimited devices', features: ['Everything in Pro', 'Custom integrations', 'Dedicated support', 'SLA guarantee', 'On-site installation'], highlight: false },
+              ].map((plan, i) => (
+                <div className={`farmsense__plan ${plan.highlight ? 'farmsense__plan--highlight' : ''}`} key={i}>
+                  {plan.highlight && <div className="farmsense__plan-badge">Most Popular</div>}
+                  <div className="farmsense__plan-name">{plan.name}</div>
+                  <div className="farmsense__plan-price">{plan.price}<span>{plan.period}</span></div>
+                  <div className="farmsense__plan-devices">{plan.devices}</div>
+                  <ul className="farmsense__plan-features">
+                    {plan.features.map((f, j) => <li key={j}>✓ {f}</li>)}
+                  </ul>
+                  <a href="#contact" className={`btn ${plan.highlight ? 'btn--primary' : 'btn--ghost'}`}>Get Started</a>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="farmsense__hardware">
+            <h3 className="farmsense__pricing-title">Hardware Kits</h3>
+            <div className="farmsense__hw-cards">
+              <div className="farmsense__hw-card">
+                <div className="farmsense__hw-icon">📦</div>
+                <div className="farmsense__hw-name">Starter Kit</div>
+                <div className="farmsense__hw-price">$499</div>
+                <div className="farmsense__hw-includes">1 Gateway + 5 Sensor Nodes</div>
+                <a href="#contact" className="btn btn--ghost">Order Now</a>
+              </div>
+              <div className="farmsense__hw-card farmsense__hw-card--featured">
+                <div className="farmsense__hw-icon">🚀</div>
+                <div className="farmsense__hw-name">Pro Kit</div>
+                <div className="farmsense__hw-price">$1,499</div>
+                <div className="farmsense__hw-includes">1 Gateway + 20 Sensor Nodes</div>
+                <a href="#contact" className="btn btn--primary">Order Now</a>
+              </div>
             </div>
           </div>
         </div>
