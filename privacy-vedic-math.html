@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy – Vedic Math: Learn 16 Sutras | Ikshana Solutions</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=Inter:wght@400;500;600&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --saffron:   #E8671A;
+      --ink:       #1A1814;
+      --warm-mid:  #5C4F3A;
+      --parchment: #FAF7F2;
+      --rule:      #DDD5C8;
+      --body-max:  720px;
+    }
+
+    html { font-size: 17px; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--parchment);
+      color: var(--ink);
+      line-height: 1.75;
+    }
+
+    /* ── Header ── */
+    header {
+      border-bottom: 2px solid var(--ink);
+      padding: 2rem 2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      max-width: calc(var(--body-max) + 4rem);
+      margin: 0 auto;
+    }
+
+    .logo-mark {
+      width: 44px; height: 44px;
+      background: var(--ink);
+      border-radius: 8px;
+      display: grid; place-items: center;
+      flex-shrink: 0;
+    }
+    .logo-mark span {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--saffron);
+      line-height: 1;
+    }
+
+    .brand { display: flex; flex-direction: column; }
+    .brand-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+    }
+    .brand-app {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    /* ── Hero band ── */
+    .hero {
+      background: var(--ink);
+      color: var(--parchment);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--saffron);
+      margin-bottom: 0.6rem;
+    }
+    .hero h1 {
+      font-family: 'Crimson Pro', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .hero-meta {
+      font-size: 0.82rem;
+      color: #B5A99A;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Content ── */
+    main {
+      max-width: var(--body-max);
+      margin: 0 auto;
+      padding: 3.5rem 2rem 5rem;
+    }
+
+    /* Table of contents */
+    .toc {
+      background: white;
+      border: 1px solid var(--rule);
+      border-left: 4px solid var(--saffron);
+      border-radius: 4px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 3rem;
+    }
+    .toc-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--saffron);
+      margin-bottom: 0.85rem;
+    }
+    .toc ol {
+      padding-left: 1.2rem;
+    }
+    .toc li {
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+    }
+    .toc a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .toc a:hover { border-color: var(--saffron); color: var(--saffron); }
+
+    /* Sections */
+    section {
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    section:last-child { border-bottom: none; }
+
+    h2 {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.9rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+    h2 .sec-num {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--saffron);
+      background: none;
+      border: 1px solid var(--saffron);
+      border-radius: 2px;
+      padding: 0.1em 0.4em;
+      flex-shrink: 0;
+    }
+
+    p { margin-bottom: 0.9rem; font-size: 0.97rem; }
+    p:last-child { margin-bottom: 0; }
+
+    ul, ol {
+      padding-left: 1.4rem;
+      margin-bottom: 0.9rem;
+      font-size: 0.97rem;
+    }
+    li { margin-bottom: 0.4rem; }
+
+    /* Highlight box */
+    .highlight-box {
+      background: white;
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.25rem 0;
+      font-size: 0.92rem;
+    }
+    .highlight-box strong {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--saffron);
+      margin-bottom: 0.4rem;
+    }
+
+    /* Contact card */
+    .contact-card {
+      background: var(--ink);
+      color: var(--parchment);
+      border-radius: 8px;
+      padding: 2rem;
+      margin-top: 1.25rem;
+    }
+    .contact-card p { font-size: 0.92rem; color: #C5BAA8; margin-bottom: 0.4rem; }
+    .contact-card a { color: var(--saffron); text-decoration: none; }
+    .contact-card .contact-name {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--parchment);
+      margin-bottom: 0.75rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.78rem;
+      color: var(--warm-mid);
+      border-top: 1px solid var(--rule);
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 1.25rem 1rem; }
+      main { padding: 2.5rem 1rem 4rem; }
+      .hero { padding: 2rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo-mark"><span>ik</span></div>
+  <div class="brand">
+    <span class="brand-name">Ikshana Solutions LLC</span>
+    <span class="brand-app">Vedic Math: Learn 16 Sutras</span>
+  </div>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <p class="hero-eyebrow">Legal &amp; Transparency</p>
+  <h1>Privacy Policy</h1>
+  <p class="hero-meta">Effective Date: July 2, 2026 &nbsp;·&nbsp; Last Updated: July 2, 2026</p>
+</div>
+
+<!-- Main content -->
+<main>
+
+  <!-- Opening summary -->
+  <div class="highlight-box" style="margin-bottom:2.5rem; border-left: 4px solid var(--saffron);">
+    <strong>Summary</strong>
+    Vedic Math: Learn 16 Sutras does not collect, store, or share any personal information.
+    The app works entirely on your device. No accounts, no sign-ins, no data sent to servers.
+  </div>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <p class="toc-title">Contents</p>
+    <ol>
+      <li><a href="#scope">Scope of This Policy</a></li>
+      <li><a href="#data-collected">Information We Collect</a></li>
+      <li><a href="#no-data">What We Do Not Collect</a></li>
+      <li><a href="#purchases">In-App Purchases</a></li>
+      <li><a href="#third-parties">Third-Party Services</a></li>
+      <li><a href="#children">Children's Privacy</a></li>
+      <li><a href="#permissions">App Permissions</a></li>
+      <li><a href="#data-security">Data Security</a></li>
+      <li><a href="#your-rights">Your Rights</a></li>
+      <li><a href="#changes">Changes to This Policy</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1. Scope -->
+  <section id="scope">
+    <h2><span class="sec-num">01</span> Scope of This Policy</h2>
+    <p>This Privacy Policy applies to the mobile application <strong>Vedic Math: Learn 16 Sutras</strong> (package ID: <code>com.ikshana.vedicmath</code>), published by <strong>Ikshana Solutions LLC</strong> on the Google Play Store and Apple App Store.</p>
+    <p>By downloading or using the app, you agree to the practices described in this policy. If you do not agree, please discontinue use of the app.</p>
+  </section>
+
+  <!-- 2. Data Collected -->
+  <section id="data-collected">
+    <h2><span class="sec-num">02</span> Information We Collect</h2>
+    <p>Vedic Math: Learn 16 Sutras is a fully offline educational application. <strong>We do not collect any personal information</strong> from users.</p>
+    <p>The only data stored by the app is:</p>
+    <ul>
+      <li><strong>Local app preferences</strong> — such as quiz progress, completed sutras, and settings. This data is stored solely on your device and is never transmitted to us or any third party.</li>
+      <li><strong>Purchase receipt status</strong> — a boolean flag stored locally on your device confirming whether the full-app in-app purchase has been completed. This is handled entirely by Google Play Billing or Apple StoreKit and we do not receive or store your payment details.</li>
+    </ul>
+  </section>
+
+  <!-- 3. No Data -->
+  <section id="no-data">
+    <h2><span class="sec-num">03</span> What We Do Not Collect</h2>
+    <p>We explicitly do <strong>not</strong> collect, transmit, or store any of the following:</p>
+    <ul>
+      <li>Name, email address, or any contact information</li>
+      <li>Device identifiers (IMEI, Android ID, Advertising ID)</li>
+      <li>Location data (GPS or network-based)</li>
+      <li>Usage analytics or crash reports sent to our servers</li>
+      <li>Camera, microphone, or media content</li>
+      <li>Contacts, messages, or call logs</li>
+      <li>Browsing history or search queries</li>
+      <li>Financial or payment information</li>
+    </ul>
+    <div class="highlight-box">
+      <strong>No accounts required</strong>
+      This app does not require you to create an account or sign in. There is no registration process and no user database maintained by Ikshana Solutions LLC.
+    </div>
+  </section>
+
+  <!-- 4. Purchases -->
+  <section id="purchases">
+    <h2><span class="sec-num">04</span> In-App Purchases</h2>
+    <p>The app offers one optional in-app purchase: a <strong>one-time, non-consumable unlock</strong> that provides access to Sutras 4 through 16 (the full app content).</p>
+    <p>All payment processing is handled exclusively by <strong>Google Play Billing</strong> (Android) or <strong>Apple StoreKit</strong> (iOS). Ikshana Solutions LLC does not receive, process, or store your credit card number, billing address, or any other payment information.</p>
+    <p>Your purchase is tied to your Google Play or Apple ID account. If you uninstall and reinstall the app, you can restore your purchase using the platform's standard restore mechanism without any additional charge.</p>
+  </section>
+
+  <!-- 5. Third Parties -->
+  <section id="third-parties">
+    <h2><span class="sec-num">05</span> Third-Party Services</h2>
+    <p>Vedic Math: Learn 16 Sutras does not integrate any third-party analytics SDKs, advertising networks, crash reporting tools, or social media SDKs.</p>
+    <p>The only third-party interaction is with the platform's own billing service (Google Play / Apple StoreKit) for processing the optional in-app purchase, which is governed by their respective privacy policies:</p>
+    <ul>
+      <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a></li>
+      <li><a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple Privacy Policy</a></li>
+    </ul>
+  </section>
+
+  <!-- 6. Children -->
+  <section id="children">
+    <h2><span class="sec-num">06</span> Children's Privacy</h2>
+    <p>Vedic Math: Learn 16 Sutras is an educational app suitable for all ages, including children under 13. Because the app collects no personal information whatsoever, it is fully compliant with the <strong>Children's Online Privacy Protection Act (COPPA)</strong> and Google Play's Families Policy.</p>
+    <p>We do not knowingly collect any information from children or any other users. If you believe we have inadvertently collected information from a child, please contact us immediately and we will take prompt action to delete it.</p>
+  </section>
+
+  <!-- 7. Permissions -->
+  <section id="permissions">
+    <h2><span class="sec-num">07</span> App Permissions</h2>
+    <p>The app requests only the minimum permissions necessary for its core educational function:</p>
+    <ul>
+      <li><strong>INTERNET</strong> — Required solely to validate and process the in-app purchase transaction with Google Play Billing. No other network communication occurs.</li>
+      <li><strong>BILLING</strong> — Required by Google Play to offer in-app purchases.</li>
+    </ul>
+    <p>The app does not request access to your camera, microphone, contacts, location, storage, or any other sensitive device resource.</p>
+  </section>
+
+  <!-- 8. Security -->
+  <section id="data-security">
+    <h2><span class="sec-num">08</span> Data Security</h2>
+    <p>Because Vedic Math: Learn 16 Sutras does not collect or transmit personal data, there is no personal data at risk of a breach on our servers. All app state is stored locally on your device and subject to your device's own security protections.</p>
+    <p>We encourage users to keep their devices updated and secured with a screen lock for general device safety.</p>
+  </section>
+
+  <!-- 9. Rights -->
+  <section id="your-rights">
+    <h2><span class="sec-num">09</span> Your Rights</h2>
+    <p>Since we do not collect personal data, there is no personal data held by Ikshana Solutions LLC for you to access, correct, export, or delete. If you wish to remove all app data, you can do so at any time by uninstalling the app from your device, which will erase all locally stored preferences and progress.</p>
+    <p>For users in the European Economic Area (EEA): our legal basis for any processing described above is <strong>legitimate interest</strong> in providing the app's core functionality. No data is transferred outside your device to our systems.</p>
+  </section>
+
+  <!-- 10. Changes -->
+  <section id="changes">
+    <h2><span class="sec-num">10</span> Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time to reflect changes in the app or applicable law. When we do, we will update the "Last Updated" date at the top of this page and, where appropriate, notify users within the app.</p>
+    <p>Continued use of the app after any changes to this policy constitutes your acceptance of the revised terms.</p>
+  </section>
+
+  <!-- 11. Contact -->
+  <section id="contact">
+    <h2><span class="sec-num">11</span> Contact Us</h2>
+    <p>If you have any questions about this Privacy Policy or our data practices, please reach out to us:</p>
+    <div class="contact-card">
+      <p class="contact-name">Ikshana Solutions LLC</p>
+      <p>Email: <a href="mailto:ikshanasolution123@gmail.com">ikshanasolution123@gmail.com</a></p>
+      <p>App: Vedic Math: Learn 16 Sutras</p>
+      <p>Package ID: com.ikshana.vedicmath</p>
+      <p>Little Rock, AR, United States</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  &copy; 2026 Ikshana Solutions LLC &nbsp;·&nbsp; All rights reserved &nbsp;·&nbsp;
+  <a href="mailto:ikshanasolution123@gmail.com" style="color: var(--saffron);">Contact</a>
+</footer>
+
+</body>
+</html>
