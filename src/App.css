@@ -175,6 +175,11 @@ body {
   background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.25);
   padding: 0.5rem 1.1rem; border-radius: 100px;
 }
+.pricing__group-title {
+  font-family: var(--font-display); font-size: 1.15rem; font-weight: 700;
+  color: var(--white); text-align: center; margin: 0 0 1.5rem;
+}
+.pricing__group-title--app { margin-top: 3.5rem; }
 .pricing__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: stretch; }
 .pricing-card {
   background: var(--navy-3); border: 1px solid rgba(255,255,255,0.06);
