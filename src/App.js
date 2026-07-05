@@ -62,6 +62,7 @@ function App() {
             <li><a href="#services" onClick={() => setMenuOpen(false)}>Services</a></li>
             <li><a href="#about" onClick={() => setMenuOpen(false)}>About</a></li>
             <li><a href="#industries" onClick={() => setMenuOpen(false)}>Industries</a></li>
+            <li><a href="#apps" onClick={() => setMenuOpen(false)}>Apps</a></li>
             <li><a href="#farmsense" onClick={() => setMenuOpen(false)}>FarmSense</a></li>
             <li><a href="#founder" onClick={() => setMenuOpen(false)}>Leadership</a></li>
             <li><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a></li>
@@ -241,6 +242,61 @@ function App() {
               <div className="about__card-line">"We don't just ask what you need built — we ask why it needs to exist."</div>
               <div className="about__card-attr">— Ikshana Solutions</div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* APPS */}
+      <section className="apps section" id="apps">
+        <div className="container">
+          <div className="section__header">
+            <div className="section__tag">Our Apps</div>
+            <h2 className="section__title">Mobile Apps We've Built</h2>
+            <p className="section__sub">Consumer apps designed and shipped by Ikshana Solutions, blending education with intelligent, easy-to-use design.</p>
+          </div>
+          <div className="apps__grid">
+            {[
+              {
+                icon: '🕉️',
+                name: 'Vedic Math: Learn & Quiz',
+                tagline: 'Ancient math, modern speed',
+                desc: 'Learn all 16 Vedic Math sutras with step-by-step visualizations, then put them to the test with quizzes, XP, and badges — a fun way to build lightning-fast mental math skills.',
+                tags: ['16 Sutras', 'Interactive Quizzes', 'XP & Badges'],
+                platforms: [
+                  { name: 'App Store', status: 'live', link: 'https://apps.apple.com/us/app/vedic-math-learn-quiz/id6783467135' },
+                  { name: 'Google Play', status: 'soon' },
+                ],
+              },
+            ].map((app, i) => (
+              <div className="app-card" key={i}>
+                <div className="app-card__icon">{app.icon}</div>
+                <h3 className="app-card__name">{app.name}</h3>
+                <div className="app-card__tagline">{app.tagline}</div>
+                <p className="app-card__desc">{app.desc}</p>
+                <div className="app-card__tags">
+                  {app.tags.map((t, j) => <span className="tag" key={j}>{t}</span>)}
+                </div>
+                <div className="app-card__platforms">
+                  {app.platforms.map((p, j) => (
+                    p.status === 'live' ? (
+                      <a
+                        key={j}
+                        href={p.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="app-platform-badge app-platform-badge--live"
+                      >
+                        Download on {p.name}
+                      </a>
+                    ) : (
+                      <span key={j} className="app-platform-badge app-platform-badge--soon">
+                        {p.name} — Coming Soon
+                      </span>
+                    )
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
