@@ -332,6 +332,44 @@ body {
   .founder__photo-ring { width: 160px; height: 160px; }
 }
 
+/* APPS */
+.apps { background: var(--navy-2); }
+.apps__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.app-card {
+  background: var(--navy-3); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-lg); padding: 2rem 1.75rem;
+  display: flex; flex-direction: column; gap: 0.85rem;
+  transition: var(--transition);
+}
+.app-card:hover { border-color: rgba(37,99,235,0.3); transform: translateY(-4px); }
+.app-card__icon {
+  width: 56px; height: 56px; border-radius: 16px;
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; margin-bottom: 0.25rem;
+}
+.app-card__name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--white); }
+.app-card__tagline { font-size: 0.85rem; color: var(--blue-light); font-weight: 500; margin-top: -0.5rem; }
+.app-card__desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+.app-card__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.app-card__platforms { display: flex; flex-direction: column; gap: 0.6rem; margin-top: auto; padding-top: 0.5rem; }
+.app-platform-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.6rem 1rem; border-radius: var(--radius);
+  font-size: 0.85rem; font-weight: 500; text-decoration: none;
+  transition: var(--transition);
+}
+.app-platform-badge--live { background: var(--blue); color: #fff; }
+.app-platform-badge--live:hover { background: var(--blue-light); transform: translateY(-2px); }
+.app-platform-badge--soon {
+  background: transparent; border: 1px solid rgba(255,255,255,0.15);
+  color: var(--text-muted); cursor: default;
+}
+
+@media (max-width: 768px) {
+  .apps__grid { grid-template-columns: 1fr; }
+}
+
 /* FARMSENSE */
 .farmsense { background: var(--navy); }
 .farmsense__hero { text-align: center; margin-bottom: 3rem; padding: 3rem; background: var(--navy-3); border: 1px solid rgba(37,99,235,0.2); border-radius: var(--radius-lg); }
