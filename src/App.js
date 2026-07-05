@@ -321,6 +321,7 @@ function App() {
             <div className="section__tag">Get Online</div>
             <h2 className="section__title">Want a Website Built?</h2>
             <p className="section__sub">From a simple landing page to a fully custom platform — we design, build, and launch it for you.</p>
+            <div className="pricing__badge-note">👨‍💻 Built and supported by a real, dedicated developer — not an AI generator.</div>
           </div>
           <div className="pricing__grid">
             {[
