@@ -314,15 +314,17 @@ function App() {
         </div>
       </section>
 
-      {/* WEBSITE PRICING CTA */}
+      {/* WEBSITE & APP PRICING CTA */}
       <section className="pricing section" id="website-pricing">
         <div className="container">
           <div className="section__header">
             <div className="section__tag">Get Online</div>
-            <h2 className="section__title">Want a Website Built?</h2>
-            <p className="section__sub">From a simple landing page to a fully custom platform — we design, build, and launch it for you.</p>
+            <h2 className="section__title">Want a Website or App Built?</h2>
+            <p className="section__sub">From a simple landing page to a full mobile app — we design, build, and launch it for you.</p>
             <div className="pricing__badge-note">👨‍💻 Built and supported by a real, dedicated developer — not an AI generator.</div>
           </div>
+
+          <h3 className="pricing__group-title">🌐 Website Packages</h3>
           <div className="pricing__grid">
             {[
               {
@@ -344,6 +346,46 @@ function App() {
                 price: '$2,999+',
                 note: 'starting at',
                 features: ['Custom design', 'CMS / admin panel', 'Unlimited pages', 'Ongoing support'],
+                highlight: false,
+              },
+            ].map((tier, i) => (
+              <div className={`pricing-card${tier.highlight ? ' pricing-card--highlight' : ''}`} key={i}>
+                {tier.highlight && <div className="pricing-card__badge">Most Popular</div>}
+                <h3 className="pricing-card__name">{tier.name}</h3>
+                <div className="pricing-card__price">{tier.price}</div>
+                <div className="pricing-card__note">{tier.note}</div>
+                <ul className="pricing-card__features">
+                  {tier.features.map((f, j) => (
+                    <li key={j}>{f}</li>
+                  ))}
+                </ul>
+                <a href="#contact" className={`btn ${tier.highlight ? 'btn--primary' : 'btn--ghost'} pricing-card__cta`}>Get Started</a>
+              </div>
+            ))}
+          </div>
+
+          <h3 className="pricing__group-title pricing__group-title--app">📱 Mobile App Packages</h3>
+          <div className="pricing__grid">
+            {[
+              {
+                name: 'Starter App',
+                price: '$2,999',
+                note: 'one-time',
+                features: ['Single platform (iOS or Android)', 'Up to 5 screens', 'Basic UI/UX design', '2 revision rounds'],
+                highlight: false,
+              },
+              {
+                name: 'Professional App',
+                price: '$5,999',
+                note: 'one-time',
+                features: ['iOS & Android (cross-platform)', 'Up to 12 screens', 'Backend / API integration', 'App Store & Play Store submission'],
+                highlight: true,
+              },
+              {
+                name: 'Enterprise App',
+                price: '$9,999+',
+                note: 'starting at',
+                features: ['Custom architecture', 'Admin dashboard & analytics', 'Push notifications, payments, auth', 'Ongoing maintenance & support'],
                 highlight: false,
               },
             ].map((tier, i) => (
