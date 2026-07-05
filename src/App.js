@@ -314,6 +314,55 @@ function App() {
         </div>
       </section>
 
+      {/* WEBSITE PRICING CTA */}
+      <section className="pricing section" id="website-pricing">
+        <div className="container">
+          <div className="section__header">
+            <div className="section__tag">Get Online</div>
+            <h2 className="section__title">Want a Website Built?</h2>
+            <p className="section__sub">From a simple landing page to a fully custom platform — we design, build, and launch it for you.</p>
+          </div>
+          <div className="pricing__grid">
+            {[
+              {
+                name: 'Starter',
+                price: '$499',
+                note: 'one-time',
+                features: ['Single-page site', 'Mobile responsive', '1 revision round', 'Delivered in ~1 week'],
+                highlight: false,
+              },
+              {
+                name: 'Professional',
+                price: '$1,499',
+                note: 'one-time',
+                features: ['Up to 5 pages', 'Contact form', 'Basic SEO setup', '3 revision rounds'],
+                highlight: true,
+              },
+              {
+                name: 'Business',
+                price: '$2,999+',
+                note: 'starting at',
+                features: ['Custom design', 'CMS / admin panel', 'Unlimited pages', 'Ongoing support'],
+                highlight: false,
+              },
+            ].map((tier, i) => (
+              <div className={`pricing-card${tier.highlight ? ' pricing-card--highlight' : ''}`} key={i}>
+                {tier.highlight && <div className="pricing-card__badge">Most Popular</div>}
+                <h3 className="pricing-card__name">{tier.name}</h3>
+                <div className="pricing-card__price">{tier.price}</div>
+                <div className="pricing-card__note">{tier.note}</div>
+                <ul className="pricing-card__features">
+                  {tier.features.map((f, j) => (
+                    <li key={j}>{f}</li>
+                  ))}
+                </ul>
+                <a href="#contact" className={`btn ${tier.highlight ? 'btn--primary' : 'btn--ghost'} pricing-card__cta`}>Get Started</a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* INDUSTRIES */}
       <section className="industries section" id="industries">
         <div className="container">
