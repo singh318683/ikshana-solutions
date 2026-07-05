@@ -209,7 +209,7 @@ body {
 
 /* INDUSTRIES */
 .industries { background: var(--navy-2); }
-.industries__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.industries__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 800px; margin: 0 auto; }
 .industry-card {
   background: var(--navy-3); border: 1px solid rgba(255,255,255,0.06);
   border-radius: var(--radius-lg); padding: 2rem 1.75rem; position: relative; overflow: hidden;
