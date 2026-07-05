@@ -1,11 +1,97 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 
+const DEFAULT_APPS = [
+  {
+    id: 'vedic-math',
+    icon: '🕉️',
+    name: 'Vedic Math: Learn & Quiz',
+    tagline: 'Ancient math, modern speed',
+    desc: 'Learn all 16 Vedic Math sutras with step-by-step visualizations, then put them to the test with quizzes, XP, and badges — a fun way to build lightning-fast mental math skills.',
+    tags: ['16 Sutras', 'Interactive Quizzes', 'XP & Badges'],
+    appStoreLink: 'https://apps.apple.com/us/app/vedic-math-learn-quiz/id6783467135',
+    playStoreLink: '',
+  },
+];
+
+const ADMIN_PASSWORD = 'Anshu@123';
+
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ from_name: '', from_email: '', industry: '', message: '' });
   const [formStatus, setFormStatus] = useState('idle');
+
+  const [apps, setApps] = useState(() => {
+    try {
+      const saved = localStorage.getItem('ikshana_apps');
+      return saved ? JSON.parse(saved) : DEFAULT_APPS;
+    } catch {
+      return DEFAULT_APPS;
+    }
+  });
+  const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [adminPasswordInput, setAdminPasswordInput] = useState('');
+  const [adminError, setAdminError] = useState('');
+  const [showAdminPanel, setShowAdminPanel] = useState(false);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('ikshana_apps', JSON.stringify(apps));
+    } catch {}
+  }, [apps]);
+
+  const handleAdminLogin = () => {
+    if (adminPasswordInput === ADMIN_PASSWORD) {
+      setIsAdmin(true);
+      setShowAdminLogin(false);
+      setShowAdminPanel(true);
+      setAdminPasswordInput('');
+      setAdminError('');
+    } else {
+      setAdminError('Incorrect password');
+    }
+  };
+
+  const openAdmin = () => {
+    if (isAdmin) {
+      setShowAdminPanel(true);
+    } else {
+      setShowAdminLogin(true);
+    }
+  };
+
+  const addNewApp = () => {
+    setApps([
+      ...apps,
+      {
+        id: `app-${Date.now()}`,
+        icon: '📱',
+        name: 'New App',
+        tagline: '',
+        desc: '',
+        tags: [],
+        appStoreLink: '',
+        playStoreLink: '',
+      },
+    ]);
+  };
+
+  const updateApp = (id, field, value) => {
+    setApps(apps.map(a => (a.id === id ? { ...a, [field]: value } : a)));
+  };
+
+  const updateAppTags = (id, value) => {
+    const tags = value.split(',').map(t => t.trim()).filter(Boolean);
+    updateApp(id, 'tags', tags);
+  };
+
+  const removeApp = (id) => {
+    if (window.confirm('Remove this app from the site?')) {
+      setApps(apps.filter(a => a.id !== id));
+    }
+  };
 
   const handleSubmit = async () => {
     if (!formData.from_name || !formData.from_email || !formData.message) {
@@ -255,20 +341,8 @@ function App() {
             <p className="section__sub">Consumer apps designed and shipped by Ikshana Solutions, blending education with intelligent, easy-to-use design.</p>
           </div>
           <div className="apps__grid">
-            {[
-              {
-                icon: '🕉️',
-                name: 'Vedic Math: Learn & Quiz',
-                tagline: 'Ancient math, modern speed',
-                desc: 'Learn all 16 Vedic Math sutras with step-by-step visualizations, then put them to the test with quizzes, XP, and badges — a fun way to build lightning-fast mental math skills.',
-                tags: ['16 Sutras', 'Interactive Quizzes', 'XP & Badges'],
-                platforms: [
-                  { name: 'App Store', status: 'live', link: 'https://apps.apple.com/us/app/vedic-math-learn-quiz/id6783467135' },
-                  { name: 'Google Play', status: 'soon' },
-                ],
-              },
-            ].map((app, i) => (
-              <div className="app-card" key={i}>
+            {apps.map((app) => (
+              <div className="app-card" key={app.id}>
                 <div className="app-card__icon">{app.icon}</div>
                 <h3 className="app-card__name">{app.name}</h3>
                 <div className="app-card__tagline">{app.tagline}</div>
@@ -277,23 +351,20 @@ function App() {
                   {app.tags.map((t, j) => <span className="tag" key={j}>{t}</span>)}
                 </div>
                 <div className="app-card__platforms">
-                  {app.platforms.map((p, j) => (
-                    p.status === 'live' ? (
-                      <a
-                        key={j}
-                        href={p.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="app-platform-badge app-platform-badge--live"
-                      >
-                        Download on {p.name}
-                      </a>
-                    ) : (
-                      <span key={j} className="app-platform-badge app-platform-badge--soon">
-                        {p.name} — Coming Soon
-                      </span>
-                    )
-                  ))}
+                  {app.appStoreLink ? (
+                    <a href={app.appStoreLink} target="_blank" rel="noopener noreferrer" className="app-platform-badge app-platform-badge--live">
+                      Download on App Store
+                    </a>
+                  ) : (
+                    <span className="app-platform-badge app-platform-badge--soon">App Store — Coming Soon</span>
+                  )}
+                  {app.playStoreLink ? (
+                    <a href={app.playStoreLink} target="_blank" rel="noopener noreferrer" className="app-platform-badge app-platform-badge--live">
+                      Download on Google Play
+                    </a>
+                  ) : (
+                    <span className="app-platform-badge app-platform-badge--soon">Google Play — Coming Soon</span>
+                  )}
                 </div>
               </div>
             ))}
@@ -493,9 +564,89 @@ function App() {
           </div>
         </div>
         <div className="footer__bottom">
-          <p>© 2026 Ikshana Solutions. All rights reserved.</p>
+          <p>© 2026 Ikshana Solutions. All rights reserved. <button className="admin-trigger" onClick={openAdmin} title="Admin">⚙</button></p>
         </div>
       </footer>
+
+      {/* ADMIN LOGIN MODAL */}
+      {showAdminLogin && (
+        <div className="modal-overlay" onClick={() => setShowAdminLogin(false)}>
+          <div className="modal-card" onClick={e => e.stopPropagation()}>
+            <h3 className="modal-card__title">Admin Login</h3>
+            <div className="form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                autoFocus
+                value={adminPasswordInput}
+                onChange={e => setAdminPasswordInput(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && handleAdminLogin()}
+                placeholder="Enter admin password"
+              />
+            </div>
+            {adminError && <p className="admin-error">{adminError}</p>}
+            <div className="modal-card__actions">
+              <button className="btn btn--ghost" onClick={() => { setShowAdminLogin(false); setAdminPasswordInput(''); setAdminError(''); }}>Cancel</button>
+              <button className="btn btn--primary" onClick={handleAdminLogin}>Login</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ADMIN PANEL MODAL */}
+      {showAdminPanel && (
+        <div className="modal-overlay" onClick={() => setShowAdminPanel(false)}>
+          <div className="modal-card modal-card--wide" onClick={e => e.stopPropagation()}>
+            <div className="modal-card__header">
+              <h3 className="modal-card__title">Manage Apps</h3>
+              <button className="modal-close" onClick={() => setShowAdminPanel(false)}>✕</button>
+            </div>
+            <div className="admin-apps-list">
+              {apps.map((app) => (
+                <div className="admin-app-row" key={app.id}>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label>Icon (emoji)</label>
+                      <input type="text" value={app.icon} onChange={e => updateApp(app.id, 'icon', e.target.value)} />
+                    </div>
+                    <div className="form-group">
+                      <label>App Name</label>
+                      <input type="text" value={app.name} onChange={e => updateApp(app.id, 'name', e.target.value)} />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label>Tagline</label>
+                    <input type="text" value={app.tagline} onChange={e => updateApp(app.id, 'tagline', e.target.value)} />
+                  </div>
+                  <div className="form-group">
+                    <label>Description</label>
+                    <textarea rows="3" value={app.desc} onChange={e => updateApp(app.id, 'desc', e.target.value)} />
+                  </div>
+                  <div className="form-group">
+                    <label>Feature Tags (comma-separated)</label>
+                    <input type="text" value={app.tags.join(', ')} onChange={e => updateAppTags(app.id, e.target.value)} />
+                  </div>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label>App Store Link (blank = Coming Soon)</label>
+                      <input type="text" value={app.appStoreLink} onChange={e => updateApp(app.id, 'appStoreLink', e.target.value)} placeholder="https://apps.apple.com/..." />
+                    </div>
+                    <div className="form-group">
+                      <label>Google Play Link (blank = Coming Soon)</label>
+                      <input type="text" value={app.playStoreLink} onChange={e => updateApp(app.id, 'playStoreLink', e.target.value)} placeholder="https://play.google.com/..." />
+                    </div>
+                  </div>
+                  <button className="btn btn--ghost admin-app-row__delete" onClick={() => removeApp(app.id)}>Delete This App</button>
+                </div>
+              ))}
+            </div>
+            <div className="modal-card__actions">
+              <button className="btn btn--ghost" onClick={addNewApp}>+ Add New App</button>
+              <button className="btn btn--primary" onClick={() => setShowAdminPanel(false)}>Done</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
