@@ -16,6 +16,19 @@ const DEFAULT_APPS = [
 
 const ADMIN_PASSWORD = 'Anshu@123';
 
+const DEFAULT_PRODUCTS = [
+  {
+    id: 'farmsense',
+    icon: '🌱',
+    name: 'FarmSense',
+    tagline: 'Know your farm, before it\'s too late',
+    desc: 'LoRa-powered environmental monitoring for farms, greenhouses and rural enterprises. One gateway covers up to 10 miles of open terrain — connecting soil, weather, and air quality sensors to a live dashboard with zero cellular dependency.',
+    tags: ['LoRa Long Range', 'Real-Time Alerts', '5-Year Battery Life'],
+    ctaText: 'Get Started',
+    ctaLink: '#contact',
+  },
+];
+
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -93,6 +106,52 @@ function App() {
     }
   };
 
+  const [products, setProducts] = useState(() => {
+    try {
+      const saved = localStorage.getItem('ikshana_products');
+      return saved ? JSON.parse(saved) : DEFAULT_PRODUCTS;
+    } catch {
+      return DEFAULT_PRODUCTS;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('ikshana_products', JSON.stringify(products));
+    } catch {}
+  }, [products]);
+
+  const addNewProduct = () => {
+    setProducts([
+      ...products,
+      {
+        id: `product-${Date.now()}`,
+        icon: '🔧',
+        name: 'New Product',
+        tagline: '',
+        desc: '',
+        tags: [],
+        ctaText: 'Get Started',
+        ctaLink: '#contact',
+      },
+    ]);
+  };
+
+  const updateProduct = (id, field, value) => {
+    setProducts(products.map(p => (p.id === id ? { ...p, [field]: value } : p)));
+  };
+
+  const updateProductTags = (id, value) => {
+    const tags = value.split(',').map(t => t.trim()).filter(Boolean);
+    updateProduct(id, 'tags', tags);
+  };
+
+  const removeProduct = (id) => {
+    if (window.confirm('Remove this product from the site?')) {
+      setProducts(products.filter(p => p.id !== id));
+    }
+  };
+
   const handleSubmit = async () => {
     if (!formData.from_name || !formData.from_email || !formData.message) {
       alert('Please fill in your name, email and message.');
@@ -149,7 +208,7 @@ function App() {
             <li><a href="#about" onClick={() => setMenuOpen(false)}>About</a></li>
             <li><a href="#industries" onClick={() => setMenuOpen(false)}>Industries</a></li>
             <li><a href="#apps" onClick={() => setMenuOpen(false)}>Apps</a></li>
-            <li><a href="#farmsense" onClick={() => setMenuOpen(false)}>FarmSense</a></li>
+            <li><a href="#products" onClick={() => setMenuOpen(false)}>Products</a></li>
             <li><a href="#founder" onClick={() => setMenuOpen(false)}>Leadership</a></li>
             <li><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a></li>
           </ul>
@@ -372,78 +431,31 @@ function App() {
         </div>
       </section>
 
-      {/* FARMSENSE PRODUCT */}
-      <section className="farmsense section" id="farmsense">
+      {/* PRODUCTS */}
+      <section className="products section" id="products">
         <div className="container">
           <div className="section__header">
-            <div className="section__tag">Our Product</div>
-            <h2 className="section__title">Introducing FarmSense</h2>
-            <p className="section__sub">LoRa-powered environmental monitoring for farms, greenhouses and rural enterprises — real-time insights, zero cellular dependency.</p>
+            <div className="section__tag">Our Products</div>
+            <h2 className="section__title">Products We've Built</h2>
+            <p className="section__sub">Hardware and software products designed and delivered by Ikshana Solutions.</p>
           </div>
-          <div className="farmsense__hero">
-            <div className="farmsense__badge">🌱 Now Available</div>
-            <div className="farmsense__tagline">Know your farm. <span style={{color: 'var(--blue-light)'}}>Before it's too late.</span></div>
-            <p className="farmsense__desc">
-              A single FarmSense gateway covers up to 10 miles of open terrain using LoRa wireless technology —
-              connecting soil sensors, weather stations, and air quality monitors to a cloud dashboard you can
-              access from anywhere.
-            </p>
-          </div>
-          <div className="farmsense__features">
-            {[
-              { icon: '🌡️', title: 'Soil & Weather Monitoring', desc: 'Real-time soil moisture, temperature, humidity, rainfall and wind — all in one dashboard.' },
-              { icon: '📡', title: 'LoRa Long Range', desc: 'One gateway covers up to 10 miles. No WiFi, no cellular needed. Works where others fail.' },
-              { icon: '🔔', title: 'Smart Alerts', desc: 'Custom SMS and email alerts when conditions cross your thresholds — frost warnings, drought alerts and more.' },
-              { icon: '📊', title: 'Historical Analytics', desc: 'Track trends over time. Make data-driven decisions on irrigation, planting, and harvesting.' },
-              { icon: '🔋', title: '5-Year Battery Life', desc: 'Solar and battery-powered sensors. Deploy once and forget — no wiring, no maintenance.' },
-              { icon: '💧', title: 'Irrigation Recommendations', desc: 'Automated watering recommendations based on real soil moisture data — save water and increase yield.' },
-            ].map((f, i) => (
-              <div className="farmsense__feature-card" key={i}>
-                <div className="farmsense__feature-icon">{f.icon}</div>
-                <h3 className="farmsense__feature-title">{f.title}</h3>
-                <p className="farmsense__feature-desc">{f.desc}</p>
+          <div className="apps__grid">
+            {products.map((product) => (
+              <div className="app-card" key={product.id}>
+                <div className="app-card__icon">{product.icon}</div>
+                <h3 className="app-card__name">{product.name}</h3>
+                <div className="app-card__tagline">{product.tagline}</div>
+                <p className="app-card__desc">{product.desc}</p>
+                <div className="app-card__tags">
+                  {product.tags.map((t, j) => <span className="tag" key={j}>{t}</span>)}
+                </div>
+                <div className="app-card__platforms">
+                  <a href={product.ctaLink || '#contact'} className="app-platform-badge app-platform-badge--live">
+                    {product.ctaText || 'Get Started'}
+                  </a>
+                </div>
               </div>
             ))}
-          </div>
-          <div className="farmsense__pricing">
-            <h3 className="farmsense__pricing-title">Simple, Transparent Pricing</h3>
-            <div className="farmsense__plans">
-              {[
-                { name: 'Starter', price: '$99', period: '/month', devices: 'Up to 10 devices', features: ['Real-time dashboard', 'Email alerts', '90-day data history', 'Basic analytics'], highlight: false },
-                { name: 'Professional', price: '$299', period: '/month', devices: 'Up to 50 devices', features: ['Everything in Starter', 'SMS alerts', '1-year data history', 'API access', 'Irrigation recommendations'], highlight: true },
-                { name: 'Enterprise', price: 'Custom', period: '', devices: 'Unlimited devices', features: ['Everything in Pro', 'Custom integrations', 'Dedicated support', 'SLA guarantee', 'On-site installation'], highlight: false },
-              ].map((plan, i) => (
-                <div className={`farmsense__plan ${plan.highlight ? 'farmsense__plan--highlight' : ''}`} key={i}>
-                  {plan.highlight && <div className="farmsense__plan-badge">Most Popular</div>}
-                  <div className="farmsense__plan-name">{plan.name}</div>
-                  <div className="farmsense__plan-price">{plan.price}<span>{plan.period}</span></div>
-                  <div className="farmsense__plan-devices">{plan.devices}</div>
-                  <ul className="farmsense__plan-features">
-                    {plan.features.map((f, j) => <li key={j}>✓ {f}</li>)}
-                  </ul>
-                  <a href="#contact" className={`btn ${plan.highlight ? 'btn--primary' : 'btn--ghost'}`}>Get Started</a>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="farmsense__hardware">
-            <h3 className="farmsense__pricing-title">Hardware Kits</h3>
-            <div className="farmsense__hw-cards">
-              <div className="farmsense__hw-card">
-                <div className="farmsense__hw-icon">📦</div>
-                <div className="farmsense__hw-name">Starter Kit</div>
-                <div className="farmsense__hw-price">$499</div>
-                <div className="farmsense__hw-includes">1 Gateway + 5 Sensor Nodes</div>
-                <a href="#contact" className="btn btn--ghost">Order Now</a>
-              </div>
-              <div className="farmsense__hw-card farmsense__hw-card--featured">
-                <div className="farmsense__hw-icon">🚀</div>
-                <div className="farmsense__hw-name">Pro Kit</div>
-                <div className="farmsense__hw-price">$1,499</div>
-                <div className="farmsense__hw-includes">1 Gateway + 20 Sensor Nodes</div>
-                <a href="#contact" className="btn btn--primary">Order Now</a>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -598,10 +610,11 @@ function App() {
         <div className="modal-overlay" onClick={() => setShowAdminPanel(false)}>
           <div className="modal-card modal-card--wide" onClick={e => e.stopPropagation()}>
             <div className="modal-card__header">
-              <h3 className="modal-card__title">Manage Apps</h3>
+              <h3 className="modal-card__title">Manage Apps & Products</h3>
               <button className="modal-close" onClick={() => setShowAdminPanel(false)}>✕</button>
             </div>
             <div className="admin-apps-list">
+              <h4 className="admin-section-label">Apps</h4>
               {apps.map((app) => (
                 <div className="admin-app-row" key={app.id}>
                   <div className="form-row">
@@ -639,9 +652,52 @@ function App() {
                   <button className="btn btn--ghost admin-app-row__delete" onClick={() => removeApp(app.id)}>Delete This App</button>
                 </div>
               ))}
-            </div>
-            <div className="modal-card__actions">
               <button className="btn btn--ghost" onClick={addNewApp}>+ Add New App</button>
+            </div>
+
+            <div className="admin-apps-list admin-apps-list--products">
+              <h4 className="admin-section-label">Products</h4>
+              {products.map((product) => (
+                <div className="admin-app-row" key={product.id}>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label>Icon (emoji)</label>
+                      <input type="text" value={product.icon} onChange={e => updateProduct(product.id, 'icon', e.target.value)} />
+                    </div>
+                    <div className="form-group">
+                      <label>Product Name</label>
+                      <input type="text" value={product.name} onChange={e => updateProduct(product.id, 'name', e.target.value)} />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label>Tagline</label>
+                    <input type="text" value={product.tagline} onChange={e => updateProduct(product.id, 'tagline', e.target.value)} />
+                  </div>
+                  <div className="form-group">
+                    <label>Description</label>
+                    <textarea rows="3" value={product.desc} onChange={e => updateProduct(product.id, 'desc', e.target.value)} />
+                  </div>
+                  <div className="form-group">
+                    <label>Feature Tags (comma-separated)</label>
+                    <input type="text" value={product.tags.join(', ')} onChange={e => updateProductTags(product.id, e.target.value)} />
+                  </div>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label>Button Text</label>
+                      <input type="text" value={product.ctaText} onChange={e => updateProduct(product.id, 'ctaText', e.target.value)} placeholder="Get Started" />
+                    </div>
+                    <div className="form-group">
+                      <label>Button Link</label>
+                      <input type="text" value={product.ctaLink} onChange={e => updateProduct(product.id, 'ctaLink', e.target.value)} placeholder="#contact or https://..." />
+                    </div>
+                  </div>
+                  <button className="btn btn--ghost admin-app-row__delete" onClick={() => removeProduct(product.id)}>Delete This Product</button>
+                </div>
+              ))}
+              <button className="btn btn--ghost" onClick={addNewProduct}>+ Add New Product</button>
+            </div>
+
+            <div className="modal-card__actions">
               <button className="btn btn--primary" onClick={() => setShowAdminPanel(false)}>Done</button>
             </div>
           </div>
