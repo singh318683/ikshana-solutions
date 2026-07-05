@@ -234,7 +234,7 @@ function App() {
           </h1>
           <p className="hero__sub">
             Ikshana Solutions bridges the gap between complex real-world challenges
-            and intelligent technology — across telecom, clinical trials, and education.
+            and intelligent technology — across telecom and education.
           </p>
           <div className="hero__actions">
             <a href="#services" className="btn btn--primary">Explore Services</a>
@@ -422,12 +422,6 @@ function App() {
                 desc: 'Network management, OSS/BSS systems, subscriber analytics, infrastructure optimization, and real-time monitoring solutions for modern telecom operators.',
                 tags: ['Network Ops', 'OSS/BSS', 'Analytics', 'Automation'],
                 accent: '#0ea5e9',
-              },
-              {
-                title: 'Clinical Trials',
-                desc: 'Regulatory-compliant data management, trial workflow automation, patient tracking, and reporting tools that accelerate research timelines.',
-                tags: ['EDC Systems', 'Compliance', 'Data Management', 'Reporting'],
-                accent: '#10b981',
               },
               {
                 title: 'Education',
@@ -633,7 +627,6 @@ function App() {
                 <select value={formData.industry} onChange={e => setFormData({...formData, industry: e.target.value})}>
                   <option>Select your industry</option>
                   <option>Telecommunication</option>
-                  <option>Clinical Trials</option>
                   <option>Education</option>
                   <option>Other</option>
                 </select>
