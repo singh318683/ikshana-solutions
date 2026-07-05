@@ -205,6 +205,7 @@ function App() {
           </div>
           <ul className={`nav__links ${menuOpen ? 'nav__links--open' : ''}`}>
             <li><a href="#services" onClick={() => setMenuOpen(false)}>Services</a></li>
+            <li><a href="#website-pricing" onClick={() => setMenuOpen(false)}>Pricing</a></li>
             <li><a href="#about" onClick={() => setMenuOpen(false)}>About</a></li>
             <li><a href="#industries" onClick={() => setMenuOpen(false)}>Industries</a></li>
             <li><a href="#apps" onClick={() => setMenuOpen(false)}>Apps</a></li>
@@ -661,6 +662,7 @@ function App() {
           </div>
           <div className="footer__links">
             <a href="#services">Services</a>
+            <a href="#website-pricing">Pricing</a>
             <a href="#industries">Industries</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
