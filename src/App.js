@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import { auth, db } from './firebase';
+import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
+import { collection, onSnapshot, doc, setDoc, updateDoc, deleteDoc, addDoc, getDocs } from 'firebase/firestore';
 
 const DEFAULT_APPS = [
   {
@@ -13,8 +16,6 @@ const DEFAULT_APPS = [
     playStoreLink: '',
   },
 ];
-
-const ADMIN_PASSWORD = 'Anshu@123';
 
 const DEFAULT_PRODUCTS = [
   {
@@ -35,36 +36,74 @@ function App() {
   const [formData, setFormData] = useState({ from_name: '', from_email: '', industry: '', message: '' });
   const [formStatus, setFormStatus] = useState('idle');
 
-  const [apps, setApps] = useState(() => {
-    try {
-      const saved = localStorage.getItem('ikshana_apps');
-      return saved ? JSON.parse(saved) : DEFAULT_APPS;
-    } catch {
-      return DEFAULT_APPS;
-    }
-  });
+  const [apps, setApps] = useState(DEFAULT_APPS);
+  const [products, setProducts] = useState(DEFAULT_PRODUCTS);
+
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [adminEmailInput, setAdminEmailInput] = useState('');
   const [adminPasswordInput, setAdminPasswordInput] = useState('');
   const [adminError, setAdminError] = useState('');
   const [showAdminPanel, setShowAdminPanel] = useState(false);
 
+  // Live sync apps & products from Firestore. Falls back to the
+  // hardcoded defaults above until the collections are seeded.
   useEffect(() => {
-    try {
-      localStorage.setItem('ikshana_apps', JSON.stringify(apps));
-    } catch {}
-  }, [apps]);
+    const unsubApps = onSnapshot(collection(db, 'apps'), (snap) => {
+      if (!snap.empty) {
+        setApps(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+      }
+    });
+    const unsubProducts = onSnapshot(collection(db, 'products'), (snap) => {
+      if (!snap.empty) {
+        setProducts(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+      }
+    });
+    return () => { unsubApps(); unsubProducts(); };
+  }, []);
 
-  const handleAdminLogin = () => {
-    if (adminPasswordInput === ADMIN_PASSWORD) {
-      setIsAdmin(true);
+  // Track Firebase Auth state so admin controls only show when logged in.
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => setIsAdmin(!!user));
+    return () => unsub();
+  }, []);
+
+  // One-time seed: if the Firestore collections are empty (first run
+  // after connecting Firebase), populate them from the current defaults.
+  const seedFirestoreIfEmpty = async () => {
+    const appsSnap = await getDocs(collection(db, 'apps'));
+    if (appsSnap.empty) {
+      for (const a of DEFAULT_APPS) {
+        const { id, ...rest } = a;
+        await setDoc(doc(db, 'apps', id), rest);
+      }
+    }
+    const productsSnap = await getDocs(collection(db, 'products'));
+    if (productsSnap.empty) {
+      for (const p of DEFAULT_PRODUCTS) {
+        const { id, ...rest } = p;
+        await setDoc(doc(db, 'products', id), rest);
+      }
+    }
+  };
+
+  const handleAdminLogin = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, adminEmailInput.trim(), adminPasswordInput);
       setShowAdminLogin(false);
       setShowAdminPanel(true);
+      setAdminEmailInput('');
       setAdminPasswordInput('');
       setAdminError('');
-    } else {
-      setAdminError('Incorrect password');
+      await seedFirestoreIfEmpty();
+    } catch (err) {
+      setAdminError('Incorrect email or password');
     }
+  };
+
+  const handleAdminLogout = async () => {
+    await signOut(auth);
+    setShowAdminPanel(false);
   };
 
   const openAdmin = () => {
@@ -75,24 +114,20 @@ function App() {
     }
   };
 
-  const addNewApp = () => {
-    setApps([
-      ...apps,
-      {
-        id: `app-${Date.now()}`,
-        icon: '📱',
-        name: 'New App',
-        tagline: '',
-        desc: '',
-        tags: [],
-        appStoreLink: '',
-        playStoreLink: '',
-      },
-    ]);
+  const addNewApp = async () => {
+    await addDoc(collection(db, 'apps'), {
+      icon: '📱',
+      name: 'New App',
+      tagline: '',
+      desc: '',
+      tags: [],
+      appStoreLink: '',
+      playStoreLink: '',
+    });
   };
 
-  const updateApp = (id, field, value) => {
-    setApps(apps.map(a => (a.id === id ? { ...a, [field]: value } : a)));
+  const updateApp = async (id, field, value) => {
+    await updateDoc(doc(db, 'apps', id), { [field]: value });
   };
 
   const updateAppTags = (id, value) => {
@@ -100,45 +135,26 @@ function App() {
     updateApp(id, 'tags', tags);
   };
 
-  const removeApp = (id) => {
+  const removeApp = async (id) => {
     if (window.confirm('Remove this app from the site?')) {
-      setApps(apps.filter(a => a.id !== id));
+      await deleteDoc(doc(db, 'apps', id));
     }
   };
 
-  const [products, setProducts] = useState(() => {
-    try {
-      const saved = localStorage.getItem('ikshana_products');
-      return saved ? JSON.parse(saved) : DEFAULT_PRODUCTS;
-    } catch {
-      return DEFAULT_PRODUCTS;
-    }
-  });
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('ikshana_products', JSON.stringify(products));
-    } catch {}
-  }, [products]);
-
-  const addNewProduct = () => {
-    setProducts([
-      ...products,
-      {
-        id: `product-${Date.now()}`,
-        icon: '🔧',
-        name: 'New Product',
-        tagline: '',
-        desc: '',
-        tags: [],
-        ctaText: 'Get Started',
-        ctaLink: '#contact',
-      },
-    ]);
+  const addNewProduct = async () => {
+    await addDoc(collection(db, 'products'), {
+      icon: '🔧',
+      name: 'New Product',
+      tagline: '',
+      desc: '',
+      tags: [],
+      ctaText: 'Get Started',
+      ctaLink: '#contact',
+    });
   };
 
-  const updateProduct = (id, field, value) => {
-    setProducts(products.map(p => (p.id === id ? { ...p, [field]: value } : p)));
+  const updateProduct = async (id, field, value) => {
+    await updateDoc(doc(db, 'products', id), { [field]: value });
   };
 
   const updateProductTags = (id, value) => {
@@ -146,9 +162,9 @@ function App() {
     updateProduct(id, 'tags', tags);
   };
 
-  const removeProduct = (id) => {
+  const removeProduct = async (id) => {
     if (window.confirm('Remove this product from the site?')) {
-      setProducts(products.filter(p => p.id !== id));
+      await deleteDoc(doc(db, 'products', id));
     }
   };
 
@@ -673,10 +689,19 @@ function App() {
           <div className="modal-card" onClick={e => e.stopPropagation()}>
             <h3 className="modal-card__title">Admin Login</h3>
             <div className="form-group">
+              <label>Email</label>
+              <input
+                type="email"
+                autoFocus
+                value={adminEmailInput}
+                onChange={e => setAdminEmailInput(e.target.value)}
+                placeholder="you@example.com"
+              />
+            </div>
+            <div className="form-group">
               <label>Password</label>
               <input
                 type="password"
-                autoFocus
                 value={adminPasswordInput}
                 onChange={e => setAdminPasswordInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleAdminLogin()}
@@ -685,7 +710,7 @@ function App() {
             </div>
             {adminError && <p className="admin-error">{adminError}</p>}
             <div className="modal-card__actions">
-              <button className="btn btn--ghost" onClick={() => { setShowAdminLogin(false); setAdminPasswordInput(''); setAdminError(''); }}>Cancel</button>
+              <button className="btn btn--ghost" onClick={() => { setShowAdminLogin(false); setAdminEmailInput(''); setAdminPasswordInput(''); setAdminError(''); }}>Cancel</button>
               <button className="btn btn--primary" onClick={handleAdminLogin}>Login</button>
             </div>
           </div>
@@ -785,6 +810,7 @@ function App() {
             </div>
 
             <div className="modal-card__actions">
+              <button className="btn btn--ghost" onClick={handleAdminLogout}>Log Out</button>
               <button className="btn btn--primary" onClick={() => setShowAdminPanel(false)}>Done</button>
             </div>
           </div>
