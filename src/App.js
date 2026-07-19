@@ -578,7 +578,7 @@ function App() {
               <div className="founder__credentials">
                 <div className="founder__credential">
                   <span className="founder__credential-icon">◈</span>
-                  <span>Clinical Strategy & Innovation Leader</span>
+                  <span>Innovation Leader</span>
                 </div>
 
                 <div className="founder__credential">
