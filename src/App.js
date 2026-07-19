@@ -605,7 +605,7 @@ function App() {
                 </div>
               </div>
               <a
-                href="https://www.linkedin.com/in/singh318683"
+                href="https://www.linkedin.com/in/neetu-singh-94065214/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn--ghost founder__linkedin"
